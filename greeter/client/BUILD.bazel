@@ -1,0 +1,14 @@
+load("@rules_rust//rust:defs.bzl", "rust_binary")
+
+rust_binary(
+    name = "greeter_client_rs",
+    srcs = ["greeter_client.rs"],
+    deps = ["//greeter/public:greeter_grpc_rs", "//third_party:tokio", "//third_party:tonic"],
+)
+
+cc_binary(
+    name = "greeter_client_cc",
+    srcs = ["greeter_client.cc"],
+    deps = ["@com_github_grpc_grpc//:grpc++", "//greeter/public:greeter_grpc_cc"],
+)
+

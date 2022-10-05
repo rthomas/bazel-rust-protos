@@ -1,0 +1,35 @@
+load("@rules_rust//rust:defs.bzl", "rust_library")
+load("@rules_rust//cargo:cargo_build_script.bzl", "cargo_build_script")
+load("@rules_proto_grpc//cpp:defs.bzl", "cpp_grpc_library")
+
+# Overall protobuf library.
+proto_library(
+    name = "greeter_protos",
+    visibility = ["//visibility:public"],
+    srcs = ["greeter.proto"],
+)
+
+# Rust proto lib.
+rust_library(
+    name = "greeter_grpc_rs",
+    visibility = ["//visibility:public"],
+    srcs = ["greeter.rs"],
+    deps = [":proto_build_script", "//third_party:tonic", "//third_party:prost"],
+)
+
+cargo_build_script(
+    name = "proto_build_script",
+    srcs = ["build.rs"],
+    deps = ["//third_party:tonic_build"],
+    data = [":greeter_protos"],
+    build_script_env = {
+        #  "PROTOC": "$(@rules_proto//toolchain:protoc)",
+    }
+)
+
+# C++
+cpp_grpc_library(
+    name = "greeter_grpc_cc",
+    visibility = ["//visibility:public"],
+    protos = [":greeter_protos"],
+)
