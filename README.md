@@ -1,4 +1,6 @@
-A repository that demonstrates how to build a `rust` based `grpc` service using `bazel` whilst using `tonic` and `prost` on the `rust` side.
+This is based on the "Greeter" example, using the examples from both `grpc` and `tonic`
+
+It exists as a repository that demonstrates how to build a `rust` based `grpc` service using `bazel`, whilst using `tonic` and `prost` on the `rust` side.
 
 This also contains a `c++` client for the same `rust` server.
 
