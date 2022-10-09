@@ -3,5 +3,9 @@ load("@rules_rust//rust:defs.bzl", "rust_binary")
 rust_binary(
     name = "greeter_server",
     srcs = ["greeter_server.rs"],
-    deps = ["//greeter/public:greeter_grpc_rs", "//third_party:tokio", "//third_party:tonic"],
+    deps = [
+        "//greeter/public:greeter_grpc_rs",
+        "//third_party:tokio",
+        "//third_party:tonic",
+    ],
 )

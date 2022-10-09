@@ -10,10 +10,12 @@ http_archive(
         "https://github.com/bazelbuild/rules_rust/releases/download/0.9.0/rules_rust-v0.9.0.tar.gz",
     ],
 )
-load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains")
-rules_rust_dependencies()
-rust_register_toolchains(edition="2021")
 
+load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains")
+
+rules_rust_dependencies()
+
+rust_register_toolchains(edition = "2021")
 
 # protos
 http_archive(
@@ -24,28 +26,34 @@ http_archive(
         "https://github.com/bazelbuild/rules_proto/archive/refs/tags/5.3.0-21.5.tar.gz",
     ],
 )
-load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
-rules_proto_dependencies()
-rules_proto_toolchains()
 
+load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
+
+rules_proto_dependencies()
+
+rules_proto_toolchains()
 
 # cargo crates
 load("//third_party/crates:crates.bzl", "raze_fetch_remote_crates")
-raze_fetch_remote_crates()
 
+raze_fetch_remote_crates()
 
 # grpc
 http_archive(
     name = "com_github_grpc_grpc",
-    urls = [
-        "https://github.com/grpc/grpc/archive/refs/tags/v1.46.5.zip"
-    ],
-    strip_prefix = "grpc-1.46.5",
     sha256 = "ea9a1b7505e7bc992e82794f0765025d711c411a3ea5402ce1048afc88be8301",
+    strip_prefix = "grpc-1.46.5",
+    urls = [
+        "https://github.com/grpc/grpc/archive/refs/tags/v1.46.5.zip",
+    ],
 )
+
 load("@com_github_grpc_grpc//bazel:grpc_deps.bzl", "grpc_deps")
+
 grpc_deps()
+
 load("@com_github_grpc_grpc//bazel:grpc_extra_deps.bzl", "grpc_extra_deps")
+
 grpc_extra_deps()
 
 http_archive(
@@ -55,6 +63,8 @@ http_archive(
     urls = ["https://github.com/rules-proto-grpc/rules_proto_grpc/archive/4.2.0.tar.gz"],
 )
 
-load("@rules_proto_grpc//:repositories.bzl", "rules_proto_grpc_toolchains", "rules_proto_grpc_repos")
+load("@rules_proto_grpc//:repositories.bzl", "rules_proto_grpc_repos", "rules_proto_grpc_toolchains")
+
 rules_proto_grpc_toolchains()
+
 rules_proto_grpc_repos()
