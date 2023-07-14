@@ -25,9 +25,12 @@ cargo_build_script(
     name = "proto_build_script",
     srcs = ["build.rs"],
     build_script_env = {
-        #  "PROTOC": "$(@rules_proto//toolchain:protoc)",
+        "PROTOC": "$(execpath @com_google_protobuf//:protoc)",
     },
-    data = [":greeter_protos"],
+    data = [
+        ":greeter_protos",
+        "@com_google_protobuf//:protoc",
+    ],
     deps = ["//third_party:tonic_build"],
 )
 

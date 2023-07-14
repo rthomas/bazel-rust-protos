@@ -6,7 +6,14 @@ This also contains a `c++` client for the same `rust` server.
 
 Dependencies are managed with `cargo-raze` remotely, from the `//third_party` path.
 
-Note: Currently `protoc` is set in a terrible manner in `//greeter/public/build.rs` by just sticking it into the `PROTOC` env var. Ideally this should be passed in from the `BUILD` `build_script_env` parameter.
+Note: `protoc` is passed to the build script through the `PROTOC` env var. However, the `@com_google_protobuf//:protoc`
+rule provided by `rules_proto_grpc` compiles `protoc` from the source, whereas `rules_proto` can use
+pre-compiled binaries. If you are only using `prost` and `tonic` consider using `rules_proto`.
+
+In `0.25.0`, `rules_rust` also added bazel-style `protobuf/grpc` support using `prost/tonic` in
+parallel with the rust `grpc/protobuf` crates. This approach remains to be useful if one wants to customize
+the build process (e.g., using `pbjson` to derive `serde` traits for protobuf messages).
+
 
 To run:
 
